@@ -36,59 +36,59 @@ Reference: [http://www.itk.ilstu.edu/faculty/bllim/wwwdev/sample1.htm](http://ww
 
 # Architecture
 
-## Monolithic
+### Monolithic
 
 ![architecture_1](https://github.com/kwantz/ecommerce/blob/main/documentations/images/architecture_1.jpg?raw=true)
 
 
-## Microservice (simple)
+### Microservice (simple)
 
 ![architecture_2](https://github.com/kwantz/ecommerce/blob/main/documentations/images/architecture_2.jpg?raw=true)
 
 
-## Microservice (ideal)
+### Microservice (ideal)
 
 ![architecture_3](https://github.com/kwantz/ecommerce/blob/main/documentations/images/architecture_3.jpg?raw=true)
 
-## Data Model
+### Data Model
 
 ![data_model](https://github.com/kwantz/ecommerce/blob/main/documentations/images/data_model.jpg?raw=true)
 
 # What's Next?
 
-## Authentication Service
+### Authentication Service
 - Split Authentication from Account Service
 - Handle Basic Auth
 - Handle Oauth like Google, FB, Twitter, etc.
 - Handle Token Auth
 - Handle Limit Failed Auth Attempts
 
-## Account Service
+### Account Service
 - Edit (Change, Delete) Account Info
 - Reporting Order, Shipping, Payment via Email
 - Secure Personally Identifiable Information (PII) like email, phone, address, etc.
 - Use synchronous encryption for internal service purposes
 - Use asynchronous encryption for external purposes (client, user, partner, etc.)
 
-## Product Service
+### Product Service
 - Maintain (Add, Change, Delete) Inventory
 - Create Product Review
 - Create Product Discussion
 
-## Cart Service
+### Cart Service
 - Split Cart from Product Service
 - Focus on Carting and Wishlist
 
-## Order Service
+### Order Service
 - View Order Summary & Detail
 - Change Order ID into Invoice Number
 - View History Date of Status Changes (Order, Payment, Shipping)
 
-## Payment Service
+### Payment Service
 - Split Payment from Order Service
 - Focus Handle Third-party Payment API like BCA, BRI, BNI, Gopay, Ovo, etc.
 
-## Shipping Service
+### Shipping Service
 - Split Shipping from Order Service
 - Focus Handle Third-party Shipping API like JNE, JNT, Gojek, Grab, etc.
 
