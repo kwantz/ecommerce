@@ -1,10 +1,10 @@
 # Table of Contents
 
-- [Usecases](#Usecases)
-- [Architecture](#Architecture)
-    - [Monolithic](#Monolithic)
-    - [Microservice (simple)](#Microservice_simple)
-    - [Microservice (ideal)](#Microservice_ideal)
+- [Usecases](#usecases)
+- [Architecture](#architecture)
+    - [Monolithic](#monolithic)
+    - [Microservice (simple)](#microservice-simple)
+    - [Microservice (ideal)](#microservice-ideal)
 
 # Usecases
 
@@ -28,15 +28,15 @@ Reference: [http://www.itk.ilstu.edu/faculty/bllim/wwwdev/sample1.htm](http://ww
 
 ## Monolithic
 
-![architecture_1](https://github.com/kwantz/ecommerce/blob/main/architecture_1.jpg?raw=true)
+![architecture_1](https://github.com/kwantz/ecommerce/blob/main/documentations/images/architecture_1.jpg?raw=true)
 
 
 ## Microservice (simple)
 
-![architecture_2](https://github.com/kwantz/ecommerce/blob/main/architecture_2.jpg?raw=true)
+![architecture_2](https://github.com/kwantz/ecommerce/blob/main/documentations/images/architecture_2.jpg?raw=true)
 
 
 ## Microservice (ideal)
 
-![architecture_3](https://github.com/kwantz/ecommerce/blob/main/architecture_3.jpg?raw=true)
+![architecture_3](https://github.com/kwantz/ecommerce/blob/main/documentations/images/architecture_3.jpg?raw=true)
 
