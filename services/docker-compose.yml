@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+    account-service:
+        container_name: account-service
+        build: account.Dockerfile
+        image: account-service:latest
+        ports:
+            - 8081:8080
+        networks:
+            - spring-cloud-network
+
+networks:
+    spring-cloud-network:
+        driver: bridge
