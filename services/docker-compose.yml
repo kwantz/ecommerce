@@ -3,10 +3,23 @@ version: '3'
 services:
     account-service:
         container_name: account-service
-        build: account.Dockerfile
         image: account-service:latest
+        build: 
+            context: .
+            dockerfile: account.Dockerfile
         ports:
             - 8081:8080
+        networks:
+            - spring-cloud-network
+
+    product-service:
+        container_name: product-service
+        image: product-service:latest
+        build: 
+            context: .
+            dockerfile: product.Dockerfile
+        ports:
+            - 8082:8080
         networks:
             - spring-cloud-network
 
