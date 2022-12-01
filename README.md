@@ -15,6 +15,7 @@
     - [Payment Service](#payment-service)
     - [Shipping Service](#shipping-service)
 - [Setup](#setup)
+- [Endpoint](#endpoint)
     
 # Usecases
 
@@ -94,4 +95,22 @@ Reference: [http://www.itk.ilstu.edu/faculty/bllim/wwwdev/sample1.htm](http://ww
 
 # Setup
 
-TBD
+```
+1. Install Docker + Docker Compose (Docker Desktop)
+2. Running Docker Desktop until the Engine Running (Green Highlight)
+3. cd services
+4. docker-compose up
+```
+
+# Endpoint
+
+```
+Account Service (http://localhost:8081)
+GET /ping
+
+Product Service (http://localhost:8082)
+GET /ping
+
+Order Service (http://localhost:8083)
+GET /ping
+```
