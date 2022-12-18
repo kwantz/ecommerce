@@ -6,34 +6,54 @@ services:
         image: account-service:latest
         build: 
             context: .
-            dockerfile: account.Dockerfile
+            dockerfile: ./docker/account.Dockerfile
         ports:
             - 8081:8080
         networks:
-            - spring-cloud-network
+            - global-network
+            - account-network
 
-    product-service:
-        container_name: product-service
-        image: product-service:latest
-        build: 
-            context: .
-            dockerfile: product.Dockerfile
-        ports:
-            - 8082:8080
-        networks:
-            - spring-cloud-network
+    # product-service:
+    #     container_name: product-service
+    #     image: product-service:latest
+    #     build: 
+    #         context: ./docker
+    #         dockerfile: product.Dockerfile
+    #     ports:
+    #         - 8082:8080
+    #     networks:
+    #         - global-network
 
-    order-service:
-        container_name: order-service
-        image: order-service:latest
-        build: 
-            context: .
-            dockerfile: order.Dockerfile
+    # order-service:
+    #     container_name: order-service
+    #     image: order-service:latest
+    #     build: 
+    #         context: ./docker
+    #         dockerfile: order.Dockerfile
+    #     ports:
+    #         - 8083:8080
+    #     networks:
+    #         - global-network
+
+    mysql-account:
+        container_name: mysql-account
+        image: mysql:8.0
+        restart: always
+        environment:
+            MYSQL_DATABASE: 'ecommerce'
+            MYSQL_USER: 'user'
+            MYSQL_PASSWORD: 'password'
+            MYSQL_ROOT_PASSWORD: 'password'
         ports:
-            - 8083:8080
+            - 3306:3306
+        volumes:
+            - ./docker/mysql:/var/lib/mysql
         networks:
-            - spring-cloud-network
+            - account-network
 
 networks:
-    spring-cloud-network:
+    global-network:
+        driver: bridge
+
+    account-network:
         driver: bridge
