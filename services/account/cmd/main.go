@@ -20,15 +20,18 @@ func main() {
 
 	accountRepository := repository.NewAccountRepository(db)
 
+	authUsecase := usecase.NewAuthUsecase(accountRepository)
 	accountUsecase := usecase.NewAccountUsecase(accountRepository)
 
 	pingController := controller.NewPingController()
+	authController := controller.NewAuthController(authUsecase)
 	accountController := controller.NewAccountController(accountUsecase)
 
 	router := chi.NewRouter()
 
 	setupRouting(router, Controller{
 		Ping:    pingController,
+		Auth:    authController,
 		Account: accountController,
 	})
 
@@ -51,8 +54,8 @@ func setupDatabase() *sql.DB {
 func setupRouting(router *chi.Mux, controller Controller) {
 	router.Get("/ping", controller.Ping.PingHandler)
 
-	router.Post("/login", controller.Account.LoginAccountHandler)
-	router.Post("/authorize", controller.Account.AuthorizationHandler)
+	router.Post("/login", controller.Auth.AuthenticationHandler)
+	router.Post("/authorize", controller.Auth.AuthorizationHandler)
 
 	router.Post("/", controller.Account.CreateAccountHandler)
 	router.Get("/", controller.Account.GetAllAccountHandler)
@@ -60,5 +63,6 @@ func setupRouting(router *chi.Mux, controller Controller) {
 
 type Controller struct {
 	Ping    *controller.PingController
+	Auth    *controller.AuthController
 	Account *controller.AccountController
 }
