@@ -13,16 +13,17 @@ services:
             - global-network
             - account-network
 
-    # product-service:
-    #     container_name: product-service
-    #     image: product-service:latest
-    #     build: 
-    #         context: ./docker
-    #         dockerfile: product.Dockerfile
-    #     ports:
-    #         - 8082:8080
-    #     networks:
-    #         - global-network
+    product-service:
+        container_name: product-service
+        image: product-service:latest
+        build: 
+            context: .
+            dockerfile: ./docker/product.Dockerfile
+        ports:
+            - 8082:8080
+        networks:
+            - global-network
+            - product-network
 
     # order-service:
     #     container_name: order-service
@@ -56,4 +57,7 @@ networks:
         driver: bridge
 
     account-network:
+        driver: bridge
+        
+    product-network:
         driver: bridge
