@@ -36,10 +36,12 @@ func (usecase *AuthUsecase) Authentication(ctx context.Context, request entity.L
 		return nil, err
 	}
 
+	available := 1 * time.Hour
+
 	claim := entity.LoginAccountClaim{
 		AccountResponse: convertAccountToAccountResponse(account),
 		RegisteredClaims: jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(1 * time.Minute)),
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(available)),
 			Issuer:    "ACCOUNT_SERVICE_ISSUER",
 		},
 	}

@@ -51,6 +51,30 @@ func (repository *ProductRepository) InsertProduct(ctx context.Context, request 
 	}, nil
 }
 
+func (repository *ProductRepository) UpdateProduct(ctx context.Context, product entity.Product) (*entity.Product, error) {
+	operation := "ProductRepository.UpdateProduct"
+	query := `
+		UPDATE product 
+		SET name = ?, stock = ?, price = ?
+		WHERE id = ?
+	`
+
+	_, err := repository.db.ExecContext(
+		ctx,
+		query,
+		product.Name,
+		product.Stock,
+		product.Price,
+		product.ID,
+	)
+	if err != nil {
+		log.Printf("[%s] failed execute update product, cause: %s", operation, err.Error())
+		return nil, err
+	}
+
+	return &product, nil
+}
+
 func (repository *ProductRepository) GetAllProduct(ctx context.Context) ([]entity.Product, error) {
 	operation := "ProductRepository.GetAllProduct"
 	query := `
@@ -83,4 +107,27 @@ func (repository *ProductRepository) GetAllProduct(ctx context.Context) ([]entit
 	}
 
 	return products, nil
+}
+
+func (repository *ProductRepository) GetProductByID(ctx context.Context, id int64) (*entity.Product, error) {
+	operation := "ProductRepository.GetProductByID"
+	query := `
+		SELECT id, name, stock, price
+		FROM product WHERE id = ?
+	`
+
+	result := repository.db.QueryRowContext(ctx, query, id)
+	product := entity.Product{}
+	err := result.Scan(
+		&product.ID,
+		&product.Name,
+		&product.Stock,
+		&product.Price,
+	)
+	if err != nil {
+		log.Printf("[%s] failed scan product result, cause: %s", operation, err.Error())
+		return nil, err
+	}
+
+	return &product, nil
 }

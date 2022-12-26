@@ -18,17 +18,25 @@ func main() {
 	db := setupDatabase()
 	defer db.Close()
 
-	productRepository := repository.NewProductRepository(db)
+	accountHostname := "http://account-service:8080"
 
+	cartRepository := repository.NewCartRepository(db)
+	productRepository := repository.NewProductRepository(db)
+	accountRepository := repository.NewAccountRepository(accountHostname)
+
+	accountUsecase := usecase.NewAccountUsecase(accountRepository)
 	productUsecase := usecase.NewProductUsecase(productRepository)
+	cartUsecase := usecase.NewCartUsecase(cartRepository, productRepository)
 
 	pingController := controller.NewPingController()
+	cartController := controller.NewCartController(cartUsecase, accountUsecase)
 	productController := controller.NewProductController(productUsecase)
 
 	router := chi.NewRouter()
 
 	setupRouting(router, Controller{
 		Ping:    pingController,
+		Cart:    cartController,
 		Product: productController,
 	})
 
@@ -51,11 +59,16 @@ func setupDatabase() *sql.DB {
 func setupRouting(router *chi.Mux, controller Controller) {
 	router.Get("/ping", controller.Ping.PingHandler)
 
+	router.Post("/cart", controller.Cart.AddProductToCartHandler)
+	router.Delete("/cart/{cartID}", controller.Cart.RemoveProductFromCartHandler)
+
 	router.Post("/", controller.Product.CreateProductHandler)
 	router.Get("/", controller.Product.GetAllProductHandler)
+	router.Get("/{productID}", controller.Product.GetProductHandler)
 }
 
 type Controller struct {
 	Ping    *controller.PingController
+	Cart    *controller.CartController
 	Product *controller.ProductController
 }

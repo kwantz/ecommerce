@@ -117,9 +117,12 @@ POST /login     - Do Authentication
 POST /authorize - Do Authorization
 
 Product Service (http://localhost:8082)
-GET /ping - Service Health Check
-GET /     - Get All Products
-POST /    - Create New Product
+GET /ping              - Service Health Check
+GET /{product_id}      - Get Detail Product
+GET /                  - Get All Products
+POST /                 - Create New Product
+POST /cart             - Add Product to Cart
+DELETE /cart/{cart_id} - Remove Product from Cart
 
 Order Service (http://localhost:8083)
 GET /ping

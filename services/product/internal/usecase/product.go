@@ -55,3 +55,20 @@ func (usecase *ProductUsecase) GetAllProduct(ctx context.Context) ([]entity.Prod
 
 	return response, nil
 }
+
+func (usecase *ProductUsecase) GetProduct(ctx context.Context, productID int64) (*entity.ProductResponse, error) {
+	operation := "ProductUsecase.GetAllProduct"
+
+	product, err := usecase.productRepository.GetProductByID(ctx, productID)
+	if err != nil {
+		log.Printf("[%s] failed get product by ID from repository, cause: %s", operation, err.Error())
+		return nil, err
+	}
+
+	return &entity.ProductResponse{
+		ID:    product.ID,
+		Name:  product.Name,
+		Stock: product.Stock,
+		Price: product.Price,
+	}, nil
+}
