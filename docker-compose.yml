@@ -41,16 +41,34 @@ services:
         image: mysql:8.0
         restart: always
         environment:
-            MYSQL_DATABASE: 'ecommerce'
-            MYSQL_USER: 'user'
-            MYSQL_PASSWORD: 'password'
             MYSQL_ROOT_PASSWORD: 'password'
+            MYSQL_USER: 'user_account'
+            MYSQL_PASSWORD: 'password_account'
+            MYSQL_DATABASE: 'ecommerce_account'
         ports:
-            - 3306:3306
+            - 33061:3306
         volumes:
-            - ./docker/mysql:/var/lib/mysql
+            - ./docker/mysql/account:/var/lib/mysql
+            - ./services/account/files/database:/docker-entrypoint-initdb.d
         networks:
             - account-network
+
+    mysql-product:
+        container_name: mysql-product
+        image: mysql:8.0
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: 'password'
+            MYSQL_USER: 'user_product'
+            MYSQL_PASSWORD: 'password_product'
+            MYSQL_DATABASE: 'ecommerce_product'
+        ports:
+            - 33062:3306
+        volumes:
+            - ./docker/mysql/product:/var/lib/mysql
+            - ./services/product/files/database:/docker-entrypoint-initdb.d
+        networks:
+            - product-network
 
 networks:
     global-network:

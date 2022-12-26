@@ -40,7 +40,7 @@ func main() {
 }
 
 func setupDatabase() *sql.DB {
-	db, err := sql.Open("mysql", "user:password@tcp(mysql-account:3306)/ecommerce")
+	db, err := sql.Open("mysql", "user_account:password_account@tcp(mysql-account:3306)/ecommerce_account")
 	if err != nil {
 		log.Fatal(err.Error())
 	}
