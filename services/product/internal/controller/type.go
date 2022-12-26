@@ -8,4 +8,5 @@ import (
 
 type ProductUsecase interface {
 	CreateProduct(context.Context, entity.ProductRequest) (*entity.ProductResponse, error)
+	GetAllProduct(context.Context) ([]entity.ProductResponse, error)
 }

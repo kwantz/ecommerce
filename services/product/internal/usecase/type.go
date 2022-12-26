@@ -8,4 +8,5 @@ import (
 
 type ProductRepository interface {
 	InsertProduct(context.Context, entity.ProductRequest) (*entity.Product, error)
+	GetAllProduct(context.Context) ([]entity.Product, error)
 }

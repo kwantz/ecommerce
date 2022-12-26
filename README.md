@@ -6,6 +6,7 @@
     - [Microservice (simple)](#microservice-simple)
     - [Microservice (ideal)](#microservice-ideal)
     - [Data Model](#data-model)
+    - [Docker Services](#docker-services)
 - [What's Next?](#whats-next)
     - [Authentication Service](#authentication-service)
     - [Account Service](#account-service)
@@ -39,21 +40,25 @@ Reference: [http://www.itk.ilstu.edu/faculty/bllim/wwwdev/sample1.htm](http://ww
 
 ### Monolithic
 
-![architecture_1](https://github.com/kwantz/ecommerce/blob/main/documentations/images/architecture_1.jpg?raw=true)
+![architecture_1](./documentations/images/architecture_1.jpg?raw=true)
 
 
 ### Microservice (simple)
 
-![architecture_2](https://github.com/kwantz/ecommerce/blob/main/documentations/images/architecture_2.jpg?raw=true)
+![architecture_2](./documentations/images/architecture_2.jpg?raw=true)
 
 
 ### Microservice (ideal)
 
-![architecture_3](https://github.com/kwantz/ecommerce/blob/main/documentations/images/architecture_3.jpg?raw=true)
+![architecture_3](./documentations/images/architecture_3.jpg?raw=true)
 
 ### Data Model
 
-![data_model](https://github.com/kwantz/ecommerce/blob/main/documentations/images/data_model.jpg?raw=true)
+![data_model](./documentations/images/data_model.jpg?raw=true)
+
+### Docker Services
+
+![docker_services](./documentations/images/docker_services.jpg?raw=true)
 
 # What's Next?
 
@@ -105,10 +110,16 @@ Reference: [http://www.itk.ilstu.edu/faculty/bllim/wwwdev/sample1.htm](http://ww
 
 ```
 Account Service (http://localhost:8081)
-GET /ping
+GET /ping       - Service Health Check
+GET /           - Get All Accounts
+POST /          - Create New Account
+POST /login     - Do Authentication
+POST /authorize - Do Authorization
 
 Product Service (http://localhost:8082)
-GET /ping
+GET /ping - Service Health Check
+GET /     - Get All Products
+POST /    - Create New Product
 
 Order Service (http://localhost:8083)
 GET /ping

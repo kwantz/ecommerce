@@ -50,3 +50,37 @@ func (repository *ProductRepository) InsertProduct(ctx context.Context, request 
 		Price: request.Price,
 	}, nil
 }
+
+func (repository *ProductRepository) GetAllProduct(ctx context.Context) ([]entity.Product, error) {
+	operation := "ProductRepository.GetAllProduct"
+	query := `
+		SELECT id, name, stock, price
+		FROM product
+	`
+
+	results, err := repository.db.QueryContext(ctx, query)
+	if err != nil {
+		log.Printf("[%s] failed query product, cause: %s", operation, err.Error())
+		return nil, err
+	}
+
+	products := []entity.Product{}
+
+	for results.Next() {
+		product := entity.Product{}
+		err := results.Scan(
+			&product.ID,
+			&product.Name,
+			&product.Stock,
+			&product.Price,
+		)
+		if err != nil {
+			log.Printf("[%s] failed scan product result, cause: %s", operation, err.Error())
+			return nil, err
+		}
+
+		products = append(products, product)
+	}
+
+	return products, nil
+}

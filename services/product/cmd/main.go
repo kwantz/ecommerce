@@ -52,6 +52,7 @@ func setupRouting(router *chi.Mux, controller Controller) {
 	router.Get("/ping", controller.Ping.PingHandler)
 
 	router.Post("/", controller.Product.CreateProductHandler)
+	router.Get("/", controller.Product.GetAllProductHandler)
 }
 
 type Controller struct {

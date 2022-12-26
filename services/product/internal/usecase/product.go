@@ -33,3 +33,25 @@ func (usecase *ProductUsecase) CreateProduct(ctx context.Context, request entity
 		Price: product.Price,
 	}, nil
 }
+
+func (usecase *ProductUsecase) GetAllProduct(ctx context.Context) ([]entity.ProductResponse, error) {
+	operation := "ProductUsecase.GetAllProduct"
+
+	products, err := usecase.productRepository.GetAllProduct(ctx)
+	if err != nil {
+		log.Printf("[%s] failed get all product from repository, cause: %s", operation, err.Error())
+		return nil, err
+	}
+
+	response := []entity.ProductResponse{}
+	for _, product := range products {
+		response = append(response, entity.ProductResponse{
+			ID:    product.ID,
+			Name:  product.Name,
+			Stock: product.Stock,
+			Price: product.Price,
+		})
+	}
+
+	return response, nil
+}

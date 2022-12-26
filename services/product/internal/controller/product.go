@@ -38,3 +38,16 @@ func (controller *ProductController) CreateProductHandler(w http.ResponseWriter,
 
 	utility.ResponseJSON(w, response)
 }
+
+func (controller *ProductController) GetAllProductHandler(w http.ResponseWriter, r *http.Request) {
+	operation := "ProductController.GetAllProductHandler"
+
+	response, err := controller.productUsecase.GetAllProduct(r.Context())
+	if err != nil {
+		log.Printf("[%s] failed get all product from usecase, cause: %s", operation, err.Error())
+		utility.ResponseErrorJSON(w, err)
+		return
+	}
+
+	utility.ResponseJSON(w, response)
+}
