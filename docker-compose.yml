@@ -25,16 +25,17 @@ services:
             - global-network
             - product-network
 
-    # order-service:
-    #     container_name: order-service
-    #     image: order-service:latest
-    #     build: 
-    #         context: ./docker
-    #         dockerfile: order.Dockerfile
-    #     ports:
-    #         - 8083:8080
-    #     networks:
-    #         - global-network
+    order-service:
+        container_name: order-service
+        image: order-service:latest
+        build: 
+            context: .
+            dockerfile: ./docker/order.Dockerfile
+        ports:
+            - 8083:8080
+        networks:
+            - global-network
+            - order-network
 
     mysql-account:
         container_name: mysql-account
@@ -78,4 +79,7 @@ networks:
         driver: bridge
         
     product-network:
+        driver: bridge
+        
+    order-network:
         driver: bridge
