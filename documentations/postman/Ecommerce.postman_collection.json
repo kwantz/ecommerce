@@ -1,0 +1,367 @@
+{
+	"info": {
+		"_postman_id": "ad73f26c-7959-4c91-b034-8e80de5955d5",
+		"name": "Ecommerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Account Service",
+			"item": [
+				{
+					"name": "Ping",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/ping",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"ping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user@test.com\",\r\n    \"password\": \"password\",\r\n    \"phone\": \"08123456678\",\r\n    \"address\": \"JL. Thamrin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Accounts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authentication",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user@test.com\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authorization",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBQ0NPVU5UX1NFUlZJQ0VfSVNTVUVSIiwiZXhwIjoxNjcxNjg4NzM3LCJpZCI6MiwiZW1haWwiOiJlbWFpbF91c2VyMSIsInBob25lIjoiMDgxMjM0NTY2NzgiLCJhZGRyZXNzIjoiSkwuIFRoYW1yaW4ifQ.b5R6H6l-YfzJji8PJ8XaSQM46KqnWuiuqGi4M2a_DV8",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "localhost:8081/authorize",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"authorize"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product Service",
+			"item": [
+				{
+					"name": "Ping",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/ping",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"ping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Product Test #5\",\r\n    \"stock\": 500,\r\n    \"price\": 5000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8082/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Product To Cart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBQ0NPVU5UX1NFUlZJQ0VfSVNTVUVSIiwiZXhwIjoxNjcyNTc0MzE0LCJpZCI6MSwiZW1haWwiOiJ1c2VyQHRlc3QuY29tIiwicGhvbmUiOiIwODEyMzQ1NjY3OCIsImFkZHJlc3MiOiJKTC4gVGhhbXJpbiJ9.aYTJoQG4WA0GK6F-7Zp30BoMTv6DoIILoYB60iaifi4",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"product_id\": 5,\r\n    \"quantity\": 50\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8082/cart",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Product From Cart",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBQ0NPVU5UX1NFUlZJQ0VfSVNTVUVSIiwiZXhwIjoxNjcyMDU3MTM5LCJpZCI6MSwiZW1haWwiOiJlbWFpbF91c2VyMSIsInBob25lIjoiMDgxMjM0NTY2NzgiLCJhZGRyZXNzIjoiSkwuIFRoYW1yaW4ifQ._yeh6FD_JfBNDqw_DJ_jzxR4XNgD7AsMif-CwImUUTU",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "localhost:8082/cart/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"cart",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order Service",
+			"item": [
+				{
+					"name": "Ping",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8083/ping",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"ping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Move Cart to Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBQ0NPVU5UX1NFUlZJQ0VfSVNTVUVSIiwiZXhwIjoxNjcyNTcwNDEzLCJpZCI6MSwiZW1haWwiOiJlbWFpbF91c2VyMSIsInBob25lIjoiMDgxMjM0NTY2NzgiLCJhZGRyZXNzIjoiSkwuIFRoYW1yaW4ifQ.3dVz2D32kzwSEHjxiM9Fd9L2_NYVwpQQDyqStBhD-M8",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "localhost:8083/",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Order",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBQ0NPVU5UX1NFUlZJQ0VfSVNTVUVSIiwiZXhwIjoxNjcyNTcwNDEzLCJpZCI6MSwiZW1haWwiOiJlbWFpbF91c2VyMSIsInBob25lIjoiMDgxMjM0NTY2NzgiLCJhZGRyZXNzIjoiSkwuIFRoYW1yaW4ifQ.3dVz2D32kzwSEHjxiM9Fd9L2_NYVwpQQDyqStBhD-M8",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "localhost:8083/",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Detail Order",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBQ0NPVU5UX1NFUlZJQ0VfSVNTVUVSIiwiZXhwIjoxNjcyNTcwNDEzLCJpZCI6MSwiZW1haWwiOiJlbWFpbF91c2VyMSIsInBob25lIjoiMDgxMjM0NTY2NzgiLCJhZGRyZXNzIjoiSkwuIFRoYW1yaW4ifQ.3dVz2D32kzwSEHjxiM9Fd9L2_NYVwpQQDyqStBhD-M8",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "localhost:8083/a498af16-6183-4e0a-a83c-89000ca15224",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"a498af16-6183-4e0a-a83c-89000ca15224"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

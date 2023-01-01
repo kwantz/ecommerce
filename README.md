@@ -16,7 +16,10 @@
     - [Payment Service](#payment-service)
     - [Shipping Service](#shipping-service)
 - [Setup](#setup)
-- [Endpoint](#endpoint)
+- [Flows Ping](#flows-ping)
+- [Flows Create Account and Products](#flows-create-account-and-products)
+- [Flows Add Product to Cart and Move to Order #1](#flows-add-product-to-cart-and-move-to-order-1)
+- [Flows Add Product to Cart and Move to Order #2](#flows-add-product-to-cart-and-move-to-order-2)
     
 # Usecases
 
@@ -101,29 +104,690 @@ Reference: [http://www.itk.ilstu.edu/faculty/bllim/wwwdev/sample1.htm](http://ww
 # Setup
 
 ```
-1. Install Docker + Docker Compose (Docker Desktop)
-2. Running Docker Desktop until the Engine Running (Green Highlight)
-3. docker-compose up -d --build
+1. Install Go Language
+2. Install Docker + Docker Compose (Docker Desktop)
+3. Running Docker Desktop until the Engine Running (Green Highlight)
+4. Open CLI, change to project directory, and run :
+   $ docker-compose up -d --build
 ```
 
-# Endpoint
+# Flows Ping
 
+## Ping Account
+
+### Request
+
+`GET /ping`
+
+```curl
+curl --location --request GET 'localhost:8081/ping'
 ```
-Account Service (http://localhost:8081)
-GET /ping       - Service Health Check
-GET /           - Get All Accounts
-POST /          - Create New Account
-POST /login     - Do Authentication
-POST /authorize - Do Authorization
 
-Product Service (http://localhost:8082)
-GET /ping              - Service Health Check
-GET /{product_id}      - Get Detail Product
-GET /                  - Get All Products
-POST /                 - Create New Product
-POST /cart             - Add Product to Cart
-DELETE /cart/{cart_id} - Remove Product from Cart
+### Response
 
-Order Service (http://localhost:8083)
-GET /ping
+```json
+{
+    "message": "Hello World from Account Service"
+}
+```
+
+## Ping Product
+
+### Request
+
+`GET /ping`
+
+```curl
+curl --location --request GET 'localhost:8082/ping'
+```
+
+### Response
+
+```json
+{
+    "message": "Hello World from Product Service"
+}
+```
+
+## Ping Order
+
+### Request
+
+`GET /ping`
+
+```curl
+curl --location --request GET 'localhost:8083/ping'
+```
+
+### Response
+
+```json
+{
+    "message": "Hello World from Order Service"
+}
+```
+
+# Flows Create Account and Products
+
+## Create Account
+
+### Request
+
+`POST /`
+
+```curl
+curl --location --request POST 'localhost:8081/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email": "user@test.com",
+    "password": "password",
+    "phone": "08123456678",
+    "address": "JL. Thamrin"
+}'
+```
+
+### Response
+
+```json
+{
+    "id": 1,
+    "email": "user@test.com",
+    "phone": "08123456678",
+    "address": "JL. Thamrin"
+}
+```
+
+##  Create Product #1
+
+### Request
+
+`POST /`
+
+```curl
+curl --location --request POST 'localhost:8082/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "Product Test #1",
+    "stock": 100,
+    "price": 1000
+}'
+```
+
+### Response
+
+```json
+{
+    "id": 1,
+    "name": "Product Test #1",
+    "stock": 100,
+    "price": 1000
+}
+```
+
+##  Create Product #2
+
+### Request
+
+`POST /`
+
+```curl
+curl --location --request POST 'localhost:8082/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "Product Test #2",
+    "stock": 200,
+    "price": 2000
+}'
+```
+
+### Response
+
+```json
+{
+    "id": 2,
+    "name": "Product Test #2",
+    "stock": 200,
+    "price": 2000
+}
+```
+
+##  Create Product #3
+
+### Request
+
+`POST /`
+
+```curl
+curl --location --request POST 'localhost:8082/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "Product Test #3",
+    "stock": 300,
+    "price": 3000
+}'
+```
+
+### Response
+
+```json
+{
+    "id": 3,
+    "name": "Product Test #3",
+    "stock": 300,
+    "price": 3000
+}
+```
+
+##  Create Product #4
+
+### Request
+
+`POST /`
+
+```curl
+curl --location --request POST 'localhost:8082/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "Product Test #4",
+    "stock": 400,
+    "price": 4000
+}'
+```
+
+### Response
+
+```json
+{
+    "id": 4,
+    "name": "Product Test #4",
+    "stock": 400,
+    "price": 4000
+}
+```
+
+##  Create Product #5
+
+### Request
+
+`POST /`
+
+```curl
+curl --location --request POST 'localhost:8082/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "Product Test #5",
+    "stock": 500,
+    "price": 5000
+}'
+```
+
+### Response
+
+```json
+{
+    "id": 5,
+    "name": "Product Test #5",
+    "stock": 500,
+    "price": 5000
+}
+```
+
+## Get All Products
+
+### Request
+
+`GET /`
+
+```curl
+curl --location --request GET 'localhost:8082/'
+```
+
+### Response
+
+```json
+[
+    {
+        "id": 1,
+        "name": "Product Test #1",
+        "stock": 100,
+        "price": 1000
+    },
+    {
+        "id": 2,
+        "name": "Product Test #2",
+        "stock": 200,
+        "price": 2000
+    },
+    {
+        "id": 3,
+        "name": "Product Test #3",
+        "stock": 300,
+        "price": 3000
+    },
+    {
+        "id": 4,
+        "name": "Product Test #4",
+        "stock": 400,
+        "price": 4000
+    },
+    {
+        "id": 5,
+        "name": "Product Test #5",
+        "stock": 500,
+        "price": 5000
+    }
+]
+```
+
+# Flows Add Product to Cart and Move to Order #1
+
+## Authentication
+
+### Request
+
+`POST /login`
+
+```curl
+curl --location --request POST 'localhost:8081/login' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email": "user@test.com",
+    "password": "password"
+}'
+```
+
+### Response
+
+```json
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJBQ0NPVU5UX1NFUlZJQ0VfSVNTVUVSIiwiZXhwIjoxNjcyNTcyMTYwLCJpZCI6MSwiZW1haWwiOiJ1c2VyQHRlc3QuY29tIiwicGhvbmUiOiIwODEyMzQ1NjY3OCIsImFkZHJlc3MiOiJKTC4gVGhhbXJpbiJ9.MV4j709mXainNlGf4shbfmt07tGBsKisJ3TQtgzjlTg"
+}
+```
+
+## Add Product to Cart #1
+
+### Request
+
+`POST /cart`
+
+```curl
+curl --location --request POST 'localhost:8082/cart' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer <token>' \
+--data-raw '{
+    "product_id": 1,
+    "quantity": 10
+}'
+```
+
+### Response
+
+```json
+{
+    "id": 1,
+    "account_id": 1,
+    "product_id": 1,
+    "quantity": 10
+}
+```
+
+## Add Product to Cart #2
+
+### Request
+
+`POST /cart`
+
+```curl
+curl --location --request POST 'localhost:8082/cart' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer <token>' \
+--data-raw '{
+    "product_id": 2,
+    "quantity": 20
+}'
+```
+
+### Response
+
+```json
+{
+    "id": 2,
+    "account_id": 1,
+    "product_id": 2,
+    "quantity": 20
+}
+```
+
+## Add Product to Cart #3
+
+### Request
+
+`POST /cart`
+
+```curl
+curl --location --request POST 'localhost:8082/cart' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer <token>' \
+--data-raw '{
+    "product_id": 3,
+    "quantity": 30
+}'
+```
+
+### Response
+
+```json
+{
+    "id": 3,
+    "account_id": 1,
+    "product_id": 3,
+    "quantity": 30
+}
+```
+
+## Move Cart to Order
+
+### Request
+
+`POST /`
+
+```curl
+curl --location --request POST 'localhost:8083/' \
+--header 'Authorization: Bearer <token>'
+```
+
+### Response
+
+```json
+{
+    "invoice": "7c338f43-6030-4e4f-a934-29592cba7f7d",
+    "status": "PENDING",
+    "payment_status": "AWAITING PAYMENT",
+    "shipping_status": "AWAITING SHIPPING"
+}
+```
+
+## Get Detail Order
+
+### Request
+
+`GET /<income>`
+
+```curl
+curl --location --request GET 'localhost:8083/<invoice>' \
+--header 'Authorization: Bearer <token>'
+```
+
+### Response
+
+```json
+{
+    "invoice": "7c338f43-6030-4e4f-a934-29592cba7f7d",
+    "status": "PENDING",
+    "payment_status": "AWAITING PAYMENT",
+    "shipping_status": "AWAITING SHIPPING",
+    "list_order_product": [
+        {
+            "id": 1,
+            "product_id": 1,
+            "product_name": "Product Test #1",
+            "quantity": 10,
+            "price": 1000
+        },
+        {
+            "id": 2,
+            "product_id": 2,
+            "product_name": "Product Test #2",
+            "quantity": 20,
+            "price": 2000
+        },
+        {
+            "id": 3,
+            "product_id": 3,
+            "product_name": "Product Test #3",
+            "quantity": 30,
+            "price": 3000
+        }
+    ]
+}
+```
+
+## Get All Products
+
+### Request
+
+`GET /`
+
+```curl
+curl --location --request GET 'localhost:8082/'
+```
+
+### Response
+
+```json
+[
+    {
+        "id": 1,
+        "name": "Product Test #1",
+        "stock": 90,
+        "price": 1000
+    },
+    {
+        "id": 2,
+        "name": "Product Test #2",
+        "stock": 180,
+        "price": 2000
+    },
+    {
+        "id": 3,
+        "name": "Product Test #3",
+        "stock": 270,
+        "price": 3000
+    },
+    {
+        "id": 4,
+        "name": "Product Test #4",
+        "stock": 400,
+        "price": 4000
+    },
+    {
+        "id": 5,
+        "name": "Product Test #5",
+        "stock": 500,
+        "price": 5000
+    }
+]
+```
+
+# Flows Add Product to Cart and Move to Order #2
+
+## Add Product to Cart #4
+
+### Request
+
+`POST /cart`
+
+```curl
+curl --location --request POST 'localhost:8082/cart' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer <token>' \
+--data-raw '{
+    "product_id": 4,
+    "quantity": 40
+}'
+```
+
+### Response
+
+```json
+{
+    "id": 4,
+    "account_id": 1,
+    "product_id": 4,
+    "quantity": 40
+}
+```
+
+## Add Product to Cart #5
+
+### Request
+
+`POST /cart`
+
+```curl
+curl --location --request POST 'localhost:8082/cart' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer <token>' \
+--data-raw '{
+    "product_id": 5,
+    "quantity": 50
+}'
+```
+
+### Response
+
+```json
+{
+    "id": 5,
+    "account_id": 1,
+    "product_id": 5,
+    "quantity": 50
+}
+```
+
+## Move Cart to Order
+
+### Request
+
+`POST /`
+
+```curl
+curl --location --request POST 'localhost:8083/' \
+--header 'Authorization: Bearer <token>'
+```
+
+### Response
+
+```json
+{
+    "invoice": "277a73ac-d8c8-486d-ba1e-8e46562c6e00",
+    "status": "PENDING",
+    "payment_status": "AWAITING PAYMENT",
+    "shipping_status": "AWAITING SHIPPING"
+}
+```
+
+## Get Detail Order
+
+### Request
+
+`GET /<income>`
+
+```curl
+curl --location --request GET 'localhost:8083/<invoice>' \
+--header 'Authorization: Bearer <token>'
+```
+
+### Response
+
+```json
+{
+    "invoice": "277a73ac-d8c8-486d-ba1e-8e46562c6e00",
+    "status": "PENDING",
+    "payment_status": "AWAITING PAYMENT",
+    "shipping_status": "AWAITING SHIPPING",
+    "list_order_product": [
+        {
+            "id": 4,
+            "product_id": 4,
+            "product_name": "Product Test #4",
+            "quantity": 40,
+            "price": 4000
+        },
+        {
+            "id": 5,
+            "product_id": 5,
+            "product_name": "Product Test #5",
+            "quantity": 50,
+            "price": 5000
+        }
+    ]
+}
+```
+
+## Get All Order
+
+### Request
+
+`GET /`
+
+```curl
+curl --location --request GET 'localhost:8083/' \
+--header 'Authorization: Bearer <token>'
+```
+
+### Response
+
+```json
+[
+    {
+        "invoice": "7c338f43-6030-4e4f-a934-29592cba7f7d",
+        "status": "PENDING",
+        "payment_status": "AWAITING PAYMENT",
+        "shipping_status": "AWAITING SHIPPING"
+    },
+    {
+        "invoice": "277a73ac-d8c8-486d-ba1e-8e46562c6e00",
+        "status": "PENDING",
+        "payment_status": "AWAITING PAYMENT",
+        "shipping_status": "AWAITING SHIPPING"
+    }
+]
+```
+
+## Get All Products
+
+### Request
+
+`GET /`
+
+```curl
+curl --location --request GET 'localhost:8082/'
+```
+
+### Response
+
+```json
+[
+    {
+        "id": 1,
+        "name": "Product Test #1",
+        "stock": 90,
+        "price": 1000
+    },
+    {
+        "id": 2,
+        "name": "Product Test #2",
+        "stock": 180,
+        "price": 2000
+    },
+    {
+        "id": 3,
+        "name": "Product Test #3",
+        "stock": 270,
+        "price": 3000
+    },
+    {
+        "id": 4,
+        "name": "Product Test #4",
+        "stock": 360,
+        "price": 4000
+    },
+    {
+        "id": 5,
+        "name": "Product Test #5",
+        "stock": 450,
+        "price": 5000
+    }
+]
 ```
