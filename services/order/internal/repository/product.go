@@ -20,11 +20,11 @@ func NewProductRepository(productHostname string) *ProductRepository {
 	}
 }
 
-func (repository *ProductRepository) GetProduct(ctx context.Context, productID int64) (*entity.Product, error) {
-	operation := "ProductRepository.GetProduct"
+func (repository *ProductRepository) GetProductByID(ctx context.Context, productID int64) (*entity.Product, error) {
+	operation := "ProductRepository.GetProductByID"
 
 	url := fmt.Sprintf("%s/%d", repository.productHostname, productID)
-	req, err := http.NewRequest("POST", url, nil)
+	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		log.Printf("[%s] failed create new request to product API, cause: %s", operation, err.Error())
 		return nil, err

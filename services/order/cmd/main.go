@@ -19,10 +19,12 @@ func main() {
 	defer db.Close()
 
 	cartHostname := "http://product-service:8080"
+	productHostname := "http://product-service:8080"
 	accountHostname := "http://account-service:8080"
 
 	orderRepository := repository.NewOrderRepository(db)
 	cartRepository := repository.NewCartRepository(cartHostname)
+	productRepository := repository.NewProductRepository(productHostname)
 	accountRepository := repository.NewAccountRepository(accountHostname)
 	orderProductRepository := repository.NewOrderProductRepository(db)
 
@@ -30,6 +32,7 @@ func main() {
 	orderUsecase := usecase.NewOrderUsecase(usecase.OrderUsecaseOption{
 		CartRepository:         cartRepository,
 		OrderRepository:        orderRepository,
+		ProductRepository:      productRepository,
 		OrderProductRepository: orderProductRepository,
 	})
 
@@ -63,6 +66,8 @@ func setupRouting(router *chi.Mux, controller Controller) {
 	router.Get("/ping", controller.Ping.PingHandler)
 
 	router.Post("/", controller.Order.CreateOrderHandler)
+	router.Get("/", controller.Order.GetOrdersHandler)
+	router.Get("/{invoice}", controller.Order.GetOrderDetailHandler)
 }
 
 type Controller struct {

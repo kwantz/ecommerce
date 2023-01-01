@@ -9,8 +9,7 @@ type OrderProduct struct {
 }
 
 type OrderProductResponse struct {
-	ID          int64  `json:"order_product_id"`
-	OrderID     int64  `json:"order_id"`
+	ID          int64  `json:"id"`
 	ProductID   int64  `json:"product_id"`
 	ProductName string `json:"product_name"`
 	Quantity    int64  `json:"quantity"`

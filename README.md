@@ -103,7 +103,7 @@ Reference: [http://www.itk.ilstu.edu/faculty/bllim/wwwdev/sample1.htm](http://ww
 ```
 1. Install Docker + Docker Compose (Docker Desktop)
 2. Running Docker Desktop until the Engine Running (Green Highlight)
-3. docker-compose up -d
+3. docker-compose up -d --build
 ```
 
 # Endpoint

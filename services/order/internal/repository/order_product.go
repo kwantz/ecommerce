@@ -47,3 +47,38 @@ func (repository *OrderProductRepository) InsertOrderProduct(ctx context.Context
 	orderProduct.ID = insertID
 	return &orderProduct, nil
 }
+
+func (repository *OrderProductRepository) GetAllOrderProductByOrderID(ctx context.Context, orderID int64) ([]entity.OrderProduct, error) {
+	operation := "OrderProductRepository.GetAllOrderProductByOrderID"
+	query := `
+		SELECT id, order_id, product_id, quantity, price
+		FROM order_product WHERE order_id = ?
+	`
+
+	results, err := repository.db.QueryContext(ctx, query, orderID)
+	if err != nil {
+		log.Printf("[%s] failed query order product, cause: %s", operation, err.Error())
+		return nil, err
+	}
+
+	orderProducts := []entity.OrderProduct{}
+
+	for results.Next() {
+		orderProduct := entity.OrderProduct{}
+		err := results.Scan(
+			&orderProduct.ID,
+			&orderProduct.OrderID,
+			&orderProduct.ProductID,
+			&orderProduct.Quantity,
+			&orderProduct.Price,
+		)
+		if err != nil {
+			log.Printf("[%s] failed scan order product result, cause: %s", operation, err.Error())
+			return nil, err
+		}
+
+		orderProducts = append(orderProducts, orderProduct)
+	}
+
+	return orderProducts, nil
+}
