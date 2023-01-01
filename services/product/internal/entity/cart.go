@@ -22,3 +22,10 @@ type CartResponse struct {
 	ProductID int64 `json:"product_id"`
 	Quantity  int64 `json:"quantity"`
 }
+
+type CartOrderResponse struct {
+	ID           int64 `json:"id"`
+	ProductID    int64 `json:"product_id"`
+	ProductPrice int64 `json:"product_price"`
+	Quantity     int64 `json:"quantity"`
+}

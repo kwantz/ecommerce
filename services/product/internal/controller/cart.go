@@ -93,3 +93,57 @@ func (controller *CartController) RemoveProductFromCartHandler(w http.ResponseWr
 
 	utility.ResponseJSON(w, response)
 }
+
+func (controller *CartController) GetCartProductsOrderHandler(w http.ResponseWriter, r *http.Request) {
+	operation := "CartController.GetCartProductsOrderHandler"
+
+	auth := r.Header.Get("Authorization")
+	if !strings.Contains(auth, "Bearer") {
+		log.Printf("[%s] invalid authorization header", operation)
+		utility.ResponseErrorJSON(w, errors.New("bad request"))
+		return
+	}
+
+	accountID, err := controller.accountUsecase.Authorization(r.Context(), auth)
+	if err != nil {
+		log.Printf("[%s] failed authorize, cause: %s", operation, err.Error())
+		utility.ResponseErrorJSON(w, err)
+		return
+	}
+
+	response, err := controller.cartUsecase.GetCartProductsByAccountID(r.Context(), accountID)
+	if err != nil {
+		log.Printf("[%s] failed get cart products by account ID from usecase, cause: %s", operation, err.Error())
+		utility.ResponseErrorJSON(w, err)
+		return
+	}
+
+	utility.ResponseJSON(w, response)
+}
+
+func (controller *CartController) DeleteCartProductsOrderHandler(w http.ResponseWriter, r *http.Request) {
+	operation := "CartController.DeleteCartProductsOrderHandler"
+
+	auth := r.Header.Get("Authorization")
+	if !strings.Contains(auth, "Bearer") {
+		log.Printf("[%s] invalid authorization header", operation)
+		utility.ResponseErrorJSON(w, errors.New("bad request"))
+		return
+	}
+
+	accountID, err := controller.accountUsecase.Authorization(r.Context(), auth)
+	if err != nil {
+		log.Printf("[%s] failed authorize, cause: %s", operation, err.Error())
+		utility.ResponseErrorJSON(w, err)
+		return
+	}
+
+	response, err := controller.cartUsecase.DeleteCartProductsByAccountID(r.Context(), accountID)
+	if err != nil {
+		log.Printf("[%s] failed delete cart products by account ID from usecase, cause: %s", operation, err.Error())
+		utility.ResponseErrorJSON(w, err)
+		return
+	}
+
+	utility.ResponseJSON(w, response)
+}

@@ -17,6 +17,9 @@ type CartRepository interface {
 	InsertCart(context.Context, entity.CartRequest) (*entity.Cart, error)
 	DeleteCart(context.Context, entity.Cart) (*entity.Cart, error)
 	GetCartByID(context.Context, int64) (*entity.Cart, error)
+
+	GetCartByAccountID(context.Context, int64) ([]entity.Cart, error)
+	DeleteCartByAccountID(context.Context, entity.Cart) error
 }
 
 type AccountRepository interface {

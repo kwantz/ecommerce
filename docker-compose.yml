@@ -71,6 +71,23 @@ services:
         networks:
             - product-network
 
+    mysql-order:
+        container_name: mysql-order
+        image: mysql:8.0
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: 'password'
+            MYSQL_USER: 'user_order'
+            MYSQL_PASSWORD: 'password_order'
+            MYSQL_DATABASE: 'ecommerce_order'
+        ports:
+            - 33063:3306
+        volumes:
+            - ./docker/mysql/order:/var/lib/mysql
+            - ./services/order/files/database:/docker-entrypoint-initdb.d
+        networks:
+            - order-network
+
 networks:
     global-network:
         driver: bridge

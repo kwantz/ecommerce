@@ -15,6 +15,9 @@ type ProductUsecase interface {
 type CartUsecase interface {
 	AddProductToCart(context.Context, entity.CartRequest) (*entity.CartResponse, error)
 	RemoveProductFromCart(context.Context, int64) (*entity.CartResponse, error)
+
+	GetCartProductsByAccountID(context.Context, int64) ([]entity.CartOrderResponse, error)
+	DeleteCartProductsByAccountID(context.Context, int64) ([]entity.CartOrderResponse, error)
 }
 
 type AccountUsecase interface {

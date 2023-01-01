@@ -62,6 +62,9 @@ func setupRouting(router *chi.Mux, controller Controller) {
 	router.Post("/cart", controller.Cart.AddProductToCartHandler)
 	router.Delete("/cart/{cartID}", controller.Cart.RemoveProductFromCartHandler)
 
+	router.Post("/cart/order", controller.Cart.GetCartProductsOrderHandler)
+	router.Delete("/cart/order", controller.Cart.DeleteCartProductsOrderHandler)
+
 	router.Post("/", controller.Product.CreateProductHandler)
 	router.Get("/", controller.Product.GetAllProductHandler)
 	router.Get("/{productID}", controller.Product.GetProductHandler)

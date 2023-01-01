@@ -97,3 +97,46 @@ func (usecase *CartUsecase) RemoveProductFromCart(ctx context.Context, cartID in
 		Quantity:  0,
 	}, nil
 }
+
+func (usecase *CartUsecase) GetCartProductsByAccountID(ctx context.Context, accountID int64) ([]entity.CartOrderResponse, error) {
+	operation := "CartUsecase.GetCartProductsByAccountID"
+
+	carts, err := usecase.cartRepository.GetCartByAccountID(ctx, accountID)
+	if err != nil {
+		log.Printf("[%s] failed get cart by account ID, cause: %s", operation, err.Error())
+		return nil, err
+	}
+
+	cartProducts := []entity.CartOrderResponse{}
+
+	for _, cart := range carts {
+		product, err := usecase.productRepository.GetProductByID(ctx, cart.ProductID)
+		if err != nil {
+			log.Printf("[%s] failed get product by ID, cause: %s", operation, err.Error())
+			return nil, err
+		}
+		cartProducts = append(cartProducts, entity.CartOrderResponse{
+			ID:           cart.ID,
+			ProductID:    cart.ProductID,
+			ProductPrice: product.Price,
+			Quantity:     cart.Quantity,
+		})
+	}
+
+	return cartProducts, nil
+}
+
+func (usecase *CartUsecase) DeleteCartProductsByAccountID(ctx context.Context, accountID int64) ([]entity.CartOrderResponse, error) {
+	operation := "CartUsecase.DeleteCartProductsByAccountID"
+
+	err := usecase.cartRepository.DeleteCartByAccountID(ctx, entity.Cart{
+		AccountID: accountID,
+		DeletedAt: time.Now(),
+	})
+	if err != nil {
+		log.Printf("[%s] failed delete cart by account ID, cause: %s", operation, err.Error())
+		return nil, err
+	}
+
+	return []entity.CartOrderResponse{}, nil
+}

@@ -95,3 +95,59 @@ func (repository *CartRepository) GetCartByID(ctx context.Context, id int64) (*e
 
 	return &cart, nil
 }
+
+func (repository *CartRepository) GetCartByAccountID(ctx context.Context, accountID int64) ([]entity.Cart, error) {
+	operation := "CartRepository.GetCartByAccountID"
+	query := `
+		SELECT id, account_id, product_id, quantity
+		FROM cart WHERE account_id = ? AND deleted_at IS NULL
+	`
+
+	results, err := repository.db.QueryContext(ctx, query, accountID)
+	if err != nil {
+		log.Printf("[%s] failed query cart, cause: %s", operation, err.Error())
+		return nil, err
+	}
+
+	carts := []entity.Cart{}
+
+	for results.Next() {
+		cart := entity.Cart{}
+		err := results.Scan(
+			&cart.ID,
+			&cart.AccountID,
+			&cart.ProductID,
+			&cart.Quantity,
+		)
+		if err != nil {
+			log.Printf("[%s] failed scan cart result, cause: %s", operation, err.Error())
+			return nil, err
+		}
+
+		carts = append(carts, cart)
+	}
+
+	return carts, nil
+}
+
+func (repository *CartRepository) DeleteCartByAccountID(ctx context.Context, cart entity.Cart) error {
+	operation := "CartRepository.DeleteCartByAccountID"
+	query := `
+		UPDATE cart 
+		SET deleted_at = ?
+		WHERE account_id = ?
+	`
+
+	_, err := repository.db.ExecContext(
+		ctx,
+		query,
+		cart.DeletedAt,
+		cart.AccountID,
+	)
+	if err != nil {
+		log.Printf("[%s] failed execute delete cart, cause: %s", operation, err.Error())
+		return err
+	}
+
+	return nil
+}
